@@ -4,7 +4,7 @@ import { Home, Person, ExitToApp } from '@mui/icons-material'; // Import Materia
 
 export default function Sidebar() {
   return (
-    <div className="bg-navy text-white p-10 flex flex-col h-[calc(100vh-60px)] shadow-lg border-r-4 border-gray-700 transition duration-300">
+    <div className="bg-navy text-white p-10 flex flex-col h-screen shadow-lg border-r-4 border-gray-700 transition duration-300">
   <nav className="flex-grow">
     <ul>
       <li className="mb-4">
