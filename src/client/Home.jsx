@@ -175,7 +175,7 @@ function Home() {
 
   return (
     <div className="bg-white text-navy">
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="container mx-auto py-8 px-4">
         {/* Search Bar */}
         <div className="flex items-center bg-lightblue p-0.5 rounded-full mr-20 ml-20">

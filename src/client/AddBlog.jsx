@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+
 
 function AddBlog() {
   const [blogData, setBlogData] = useState({
@@ -32,7 +32,6 @@ function AddBlog() {
 
   return (
     <div className="bg-white min-h-screen text-navy">
-      <Navbar /> {/* Navbar at the top */}
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-3xl font-semibold text-center text-navy mb-8">
           Add a New Blog
