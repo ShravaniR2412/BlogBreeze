@@ -1,8 +1,9 @@
+import { getDoc, doc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore'; // Ensure you have the necessary imports
+import { useNavigate } from 'react-router-dom'; // Adjust import if needed
 import React, { useState } from 'react';
-import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Import Firestore functions
-import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate(); // Initialize navigate
@@ -29,8 +30,12 @@ export default function Login() {
         
         // Check if the password matches
         if (userData.password === password) {
+          // Set username in local storage
+          localStorage.setItem('username', userData.fullName);
+          localStorage.setItem('email', userData.email);
+          
           alert('Login successful'); // Alert on successful login
-          navigate('/dashboard'); // Navigate to the dashboard or desired route
+          navigate('/user'); // Navigate to the dashboard or desired route
         } else {
           alert('Incorrect password'); // Alert for incorrect password
         }
@@ -93,4 +98,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;
