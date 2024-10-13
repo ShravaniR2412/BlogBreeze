@@ -9,6 +9,7 @@ import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
 import Blogs from './Pages/Blogs';
 import Profile from './Pages/Profile';
+import EditBlog from './Pages/EditBlog';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="addblog" element={<AddBlog />} />
             <Route path="blogs" element={<Blogs />} />
+            <Route path="blogs/:id/edit" element={<EditBlog />} />
           </Route>
         </Routes>
       </div>

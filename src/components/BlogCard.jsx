@@ -14,7 +14,7 @@ function BlogCard({ blog, onDelete }) {
   };
 
   const handleEdit = () => {
-    navigate(`/user/blog/${blog.id}/edit`); // Redirect to edit page using navigate
+    navigate(`/user/blogs/${blog.id}/edit`); // Redirect to edit page using navigate
   };
 
   return (
