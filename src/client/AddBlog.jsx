@@ -38,7 +38,7 @@ function AddBlog() {
           Add a New Blog
         </h1>
         {/* Form container with increased box shadow and width */}
-        <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-2xl p-3 border border-navy"> {/* Increased box shadow */}
+        <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-2xl border border-navy"> {/* Increased box shadow */}
           <form onSubmit={handleSubmit}>
             {/* Title Input */}
             <div className="mb-6">
