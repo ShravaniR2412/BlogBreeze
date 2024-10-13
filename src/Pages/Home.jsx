@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import Navbar from "./components/Navbar";
-import BlogCard from "./components/BlogCard";
+// import Navbar from "./components/Navbar";
+import BlogCard from "../components/BlogCard";
 import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Importing icons
 
 const blogs = [
