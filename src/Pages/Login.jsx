@@ -35,7 +35,7 @@ const Login = () => {
           localStorage.setItem('email', userData.email);
           
           alert('Login successful'); // Alert on successful login
-          navigate('/user'); // Navigate to the dashboard or desired route
+          navigate('/user/profile'); // Navigate to the dashboard or desired route
         } else {
           alert('Incorrect password'); // Alert for incorrect password
         }
