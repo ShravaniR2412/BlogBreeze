@@ -1,113 +1,36 @@
 import React, { useState, useEffect, useRef } from "react";
 // import Navbar from "./components/Navbar";
-import BlogCard from "../components/BlogCard";
+import BlogCardHome from "../components/BlogCardHome";
 import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Importing icons
-
-const blogs = [
-  {
-    id: 1,
-    image: "https://wallpapers.com/images/hd/travel-hd-wruelfhuiyy7ewtw.jpg",
-    title: "Exploring the World",
-    description: "A brief description of this amazing travel blog.",
-    category: "Travel",
-  },
-  {
-    id: 2,
-    image:
-      "https://www.josephrosenfeld.com/wp-content/uploads/2016/06/Spring_2016_Fashion_Trends.jpg",
-    title: "Fashion Trends 2024",
-    description: "Latest trends in fashion that you need to know.",
-    category: "Fashion",
-  },
-  {
-    id: 3,
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505",
-    title: "Delicious Recipes",
-    description: "A quick overview of the most delicious dishes.",
-    category: "Cooking",
-  },
-  {
-    id: 4,
-    image:
-      "https://cdn.prod.website-files.com/5e0f1144930a8bc8aace526c/65dd33d49a346d9be0b075ea_65dd12fa299e167d189f00f7-fed9c2116dfcf56370cea3063f4e88fa.jpeg",
-    title: "Tech Innovations",
-    description: "Discover the latest trends in technology.",
-    category: "Technology",
-  },
-  {
-    id: 5,
-    image:
-      "https://images.everydayhealth.com/homepage/health-topics-2.jpg?w=720",
-    title: "Health & Wellness",
-    description: "Tips to maintain a healthy lifestyle.",
-    category: "Health",
-  },
-  {
-    id: 6,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdWtu851bJ8w_56JZqSPkYQ5H4C1bSSzzv-g&s",
-    title: "DIY Projects",
-    description: "Creative and fun DIY projects for home.",
-    category: "DIY",
-  },
-  {
-    id: 7,
-    image:
-      "https://images.everydayhealth.com/homepage/health-topics-2.jpg?w=720",
-    title: "Fitness Routines",
-    description: "Best exercises to keep yourself in shape.",
-    category: "Fitness",
-  },
-  {
-    id: 8,
-    image: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1",
-    title: "Photography Tips",
-    description: "Improve your photography skills.",
-    category: "Photography",
-  },
-
-  {
-    id: 9,
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505",
-    title: "Delicious Recipes",
-    description: "A quick overview of the most delicious dishes.",
-    category: "Cooking",
-  },
-  {
-    id: 10,
-    image:
-      "https://cdn.prod.website-files.com/5e0f1144930a8bc8aace526c/65dd33d49a346d9be0b075ea_65dd12fa299e167d189f00f7-fed9c2116dfcf56370cea3063f4e88fa.jpeg",
-    title: "Tech Innovations",
-    description: "Discover the latest trends in technology.",
-    category: "Technology",
-  },
-  {
-    id: 11,
-    image:
-      "https://images.everydayhealth.com/homepage/health-topics-2.jpg?w=720",
-    title: "Health & Wellness",
-    description: "Tips to maintain a healthy lifestyle.",
-    category: "Health",
-  },
-  {
-    id: 12,
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdWtu851bJ8w_56JZqSPkYQ5H4C1bSSzzv-g&s",
-    title: "DIY Projects",
-    description: "Creative and fun DIY projects for home.",
-    category: "DIY",
-  },
-];
+import { getFirestore, collection, getDocs } from "firebase/firestore"; // Firestore imports
 
 const PAGE_SIZE = 6; // Number of blogs per page
 
 function Home() {
+  const [blogs, setBlogs] = useState([]); // State to store all blogs
   const [searchTerm, setSearchTerm] = useState(""); // State to store the search term
   const [currentPage, setCurrentPage] = useState(1); // State to track current page
   const [selectedCategory, setSelectedCategory] = useState(""); // State to store selected category
   const scrollRef = useRef(null); // Reference for scrolling
+
+  // Function to fetch blogs from Firestore
+  const fetchBlogs = async () => {
+    const db = getFirestore(); // Initialize Firestore
+    try {
+      const querySnapshot = await getDocs(collection(db, 'blogs')); // Fetch all blogs
+      const blogsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBlogs(blogsData); // Set fetched blogs to state
+    } catch (error) {
+      console.error("Error fetching blogs: ", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs(); // Fetch blogs on component mount
+  }, []);
 
   // Function to handle search input
   const handleSearch = (event) => {
@@ -198,7 +121,7 @@ function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {blogsToDisplay.length > 0 ? (
                 blogsToDisplay.map((blog) => (
-                  <BlogCard key={blog.id} blog={blog} />
+                  <BlogCardHome key={blog.id} blog={blog} />
                 ))
               ) : (
                 <p>No blogs found.</p>
