@@ -1,12 +1,18 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        navy: '#0A3D62',
+        lightblue: '#3C6382',
+      },
+      fontFamily: {
+        'dancing-script': ['Dancing Script', 'cursive'],
+      },
+    },
   },
   plugins: [],
 }
-
