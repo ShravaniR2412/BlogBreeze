@@ -10,6 +10,7 @@ import Dashboard from './Pages/Dashboard';
 import Blogs from './Pages/Blogs';
 import Profile from './Pages/Profile';
 import EditBlog from './Pages/EditBlog';
+import ViewBlog from './Pages/ViewBlog';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/blog/:id" element={<ViewBlog />} />
           <Route path="/user" element={<Dashboard />}>
             <Route path="profile" element={<Profile />} />
             <Route path="addblog" element={<AddBlog />} />

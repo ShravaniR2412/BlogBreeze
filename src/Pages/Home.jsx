@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 // import Navbar from "./components/Navbar";
-import BlogCardHome from "../components/BlogCardHome";
+import BlogCard from "../components/BlogCard";
+import { Link } from "react-router-dom";
 import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Importing icons
 import { getFirestore, collection, getDocs } from "firebase/firestore"; // Firestore imports
 
@@ -118,45 +119,47 @@ function Home() {
         <div className="flex mt-8">
           {/* Main blog section */}
           <div className="w-3/4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogsToDisplay.length > 0 ? (
-                blogsToDisplay.map((blog) => (
-                  <BlogCardHome key={blog.id} blog={blog} />
-                ))
-              ) : (
-                <p>No blogs found.</p>
-              )}
-            </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {blogsToDisplay.length > 0 ? (
+      blogsToDisplay.map((blog) => (
+        <Link key={blog.id} to={`/blog/${blog.id}`}> {/* Add Link here */}
+          <BlogCard blog={blog} />
+        </Link>
+      ))
+    ) : (
+      <p>No blogs found.</p>
+    )}
+  </div>
 
-            {/* Icon-Based Pagination Controls */}
-            <div className="flex justify-center ml-80 mt-8 mb-4">
-              <button
-                onClick={handlePrevPage}
-                className={`mr-2 p-2 rounded-full bg-navy text-white ${
-                  currentPage === 1
-                    ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-lightblue"
-                }`}
-                disabled={currentPage === 1}
-              >
-                <FaChevronLeft size={8} />
-              </button>
-              <span className="px-4 py-2 text-lg">
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={handleNextPage}
-                className={`ml-2 p-2 rounded-full bg-navy text-white ${
-                  currentPage === totalPages
-                    ? "opacity-50 cursor-not-allowed"
-                    : "hover:bg-lightblue"
-                }`}
-                disabled={currentPage === totalPages}
-              >
-                <FaChevronRight size={8} />
-              </button>
-            </div>
-          </div>
+  {/* Icon-Based Pagination Controls */}
+  <div className="flex justify-center ml-80 mt-8 mb-4">
+    <button
+      onClick={handlePrevPage}
+      className={`mr-2 p-2 rounded-full bg-navy text-white ${
+        currentPage === 1
+          ? "opacity-50 cursor-not-allowed"
+          : "hover:bg-lightblue"
+      }`}
+      disabled={currentPage === 1}
+    >
+      <FaChevronLeft size={8} />
+    </button>
+    <span className="px-4 py-2 text-lg">
+      Page {currentPage} of {totalPages}
+    </span>
+    <button
+      onClick={handleNextPage}
+      className={`ml-2 p-2 rounded-full bg-navy text-white ${
+        currentPage === totalPages
+          ? "opacity-50 cursor-not-allowed"
+          : "hover:bg-lightblue"
+      }`}
+      disabled={currentPage === totalPages}
+    >
+      <FaChevronRight size={8} />
+    </button>
+  </div>
+</div>
 
           {/* Sidebar for categories */}
           <div className="w-1/4 ml-4">
