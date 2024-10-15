@@ -26,16 +26,16 @@ export default function ViewBlog() {
   }
 
   return (
-    <div className="flex m-3 items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white shadow-lg rounded-lg p-6 mx-4 max-w-2xl">
-        <h1 className="mb-4 text-center text-3xl font-bold text-gray-800">
+    <div className="flex m-3 items-center justify-center min-h-screen bg-gray-100 w-full">
+  <div className="bg-white shadow-lg rounded-lg p-6 mx-4 max-w-4xl w-full">
+    <h1 className="mb-4 text-center text-3xl font-bold text-gray-800">
           {blog.title}
         </h1>
         <h2 className="mb-2 text-center text-xl font-semibold text-gray-600 italic">
           {blog.description}
         </h2>
         
-        <div className="relative mb-6 overflow-hidden rounded-lg bg-gray-100 shadow-lg">
+        <div className="relative mb-3 overflow-hidden rounded-lg bg-gray-100 shadow-lg">
           <img
             src={blog.image}
             loading="lazy"

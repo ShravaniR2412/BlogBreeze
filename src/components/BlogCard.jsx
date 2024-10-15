@@ -18,7 +18,7 @@ function BlogCard({ blog, onDelete }) {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4 transition-transform transform hover:scale-105">
+    <div className="bg-white shadow-lg rounded-lg p-15 transition-transform transform hover:scale-105 w-65 h-90"> {/* Fixed size */}
        <Link to={`/user/blogs/${blog.id}`} key={blog.id}> 
       <img
         src={blog.image}

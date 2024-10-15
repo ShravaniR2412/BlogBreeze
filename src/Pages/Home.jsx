@@ -102,7 +102,7 @@ function Home() {
       {/* <Navbar /> */}
       <div className="container mx-auto py-8 px-4">
         {/* Search Bar */}
-        <div className="flex items-center bg-lightblue p-0.5 rounded-full mr-20 ml-20">
+        <div className="flex items-center bg-navy p-0.5 rounded-full mr-20 ml-20">
           <input
             type="text"
             placeholder="Search Blogs..."
@@ -180,9 +180,9 @@ function Home() {
                   <li
                     key={category}
                     onClick={() => handleCategoryClick(category)}
-                    className={`mb-2 cursor-pointer hover:text-lightblue ${
+                    className={`mb-2 cursor-pointer hover:text-blue-200 ${
                       selectedCategory === category
-                        ? "font-bold text-lightblue"
+                        ? "font-bold text-blue-200"
                         : ""
                     }`}
                   >
@@ -191,8 +191,8 @@ function Home() {
                 ))}
                 <li
                   onClick={() => handleCategoryClick("")}
-                  className={`mb-2 cursor-pointer hover:text-lightblue ${
-                    selectedCategory === "" ? "font-bold text-lightblue" : ""
+                  className={`mb-2 cursor-pointer hover:text-blue-200 ${
+                    selectedCategory === "" ? "font-bold text-blue-200" : ""
                   }`}
                 >
                   Show All
@@ -211,7 +211,7 @@ function Home() {
                   {latestBlogs.map((blog) => (
                     <li
                       key={blog.id}
-                      className="flex items-start my-2 p-2 rounded-lg hover:bg-lightblue"
+                      className="flex items-start my-2 p-2 rounded-lg hover:bg-blue-200"
                     >
                       <img
                         src={blog.image}
