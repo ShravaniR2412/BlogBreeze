@@ -33,13 +33,14 @@ export default function Profile() {
         }
       }
     };
+    console.log(userData)
 
     fetchUserData();
   }, [email]);
 
   return (
     <div className="flex justify-center items-center h-screen">
-      {userData ? (
+      {userData && email ? (
         <Paper className={classes.paper}>
           <Typography variant="h5" gutterBottom>
             Profile
@@ -79,7 +80,7 @@ export default function Profile() {
         </Paper>
       ) : (
         <Typography variant="h6" color="textSecondary">
-          Loading...
+          Please login to view your profile
         </Typography>
       )}
     </div>

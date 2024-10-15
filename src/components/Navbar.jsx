@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 function Navbar() {
   const navigate = useNavigate();
 
+  const username = localStorage.getItem('username'); // Check for username in local storage
   const handleAddBlogClick = () => {
-    const username = localStorage.getItem('username'); // Check for username in local storage
 
     if (username) {
       navigate('/user/addblog'); // Navigate to Add Blog page if username exists
@@ -33,7 +33,7 @@ function Navbar() {
         <button onClick={handleAddBlogClick} className="hover:text-lightblue">Add Blog</button>
         <a href="/about" className="hover:text-lightblue">About</a>
         {/* <a href="/Profile" className="hover:text-lightblue">Profile</a> */}
-        <button onClick={handleProfileClick} className="hover:text-lightblue">Profile</button>
+        {username ? (<button onClick={handleProfileClick} className="hover:text-lightblue">Profile</button>):(<button onClick={handleProfileClick} className="hover:text-lightblue">Login</button>)}
       </div>
     </nav>
   );

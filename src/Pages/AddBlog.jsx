@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore'; // Import Firestore functions
 import { getAuth } from 'firebase/auth'; // Import auth to fetch current user
 import { useNavigate } from 'react-router-dom';
+import { Typography } from "@mui/material";
 
 function AddBlog() {
   const [blogData, setBlogData] = useState({
@@ -12,6 +13,8 @@ function AddBlog() {
     content: '',
     customCategory: '',
   });
+
+  const username = localStorage.getItem('username'); // Fetch username from local storage
 
   const navigate = useNavigate(); // Hook to programmatically navigate
 
@@ -62,7 +65,8 @@ function AddBlog() {
 
 
   return (
-    <div className="bg-white min-h-screen text-navy">
+    <>
+      {username ?(<div className="bg-white min-h-screen text-navy">
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-3xl font-semibold text-center text-navy mb-8">
           Add a New Blog
@@ -196,7 +200,12 @@ function AddBlog() {
           </form>
         </div>
       </div>
-    </div>
+    </div>):(
+      <Typography variant="h6" color="textSecondary">
+      Please login to add a new Blog
+    </Typography>
+    )}
+    </>
   );
 }
 
