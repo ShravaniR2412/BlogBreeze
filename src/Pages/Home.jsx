@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import Navbar from "./components/Navbar";
 import BlogCardHome from "../components/BlogCardHome";
 import { Link } from "react-router-dom";
 import { FaSearch, FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Importing icons
@@ -99,10 +98,9 @@ function Home() {
 
   return (
     <div className="bg-white text-navy">
-      {/* <Navbar /> */}
       <div className="container mx-auto py-8 px-4">
         {/* Search Bar */}
-        <div className="flex items-center bg-navy p-0.5 rounded-full mr-20 ml-20">
+        <div className="flex items-center bg-navy p-0.5 rounded-full mb-8">
           <input
             type="text"
             placeholder="Search Blogs..."
@@ -110,21 +108,19 @@ function Home() {
             onChange={handleSearch}
             className="w-full p-2 rounded-l-full bg-white text-navy focus:outline-none"
           />
-          <button className="bg-navy text-white px-4 py-3 rounded-r-full hover:bg-lightblue flex items-center justify-center">
+          <button className="bg-navy text-white px-4 py-2 rounded-r-full hover:bg-lightblue flex items-center justify-center">
             <FaSearch />
           </button>
         </div>
 
         {/* Blog Cards */}
-        <div className="flex mt-8">
+        <div className="flex flex-col lg:flex-row">
           {/* Main blog section */}
-          <div className="w-3/4">
+          <div className="lg:w-3/4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {blogsToDisplay.length > 0 ? (
                 blogsToDisplay.map((blog) => (
                   <Link key={blog.id} to={`/blog/${blog.id}`}>
-                    {" "}
-                    {/* Add Link here */}
                     <BlogCardHome blog={blog} />
                   </Link>
                 ))
@@ -134,7 +130,7 @@ function Home() {
             </div>
 
             {/* Icon-Based Pagination Controls */}
-            <div className="flex justify-center ml-80 mt-8 mb-4">
+            <div className="flex justify-center mt-8 mb-4">
               <button
                 onClick={handlePrevPage}
                 className={`mr-2 p-2 rounded-full bg-navy text-white ${
@@ -164,7 +160,7 @@ function Home() {
           </div>
 
           {/* Sidebar for categories */}
-          <div className="w-1/4 ml-4">
+          <div className="w-full lg:w-1/4 mt-8 lg:mt-0 lg:ml-4">
             <div className="bg-navy text-white p-4 rounded-lg shadow-lg">
               <h2 className="text-xl font-semibold mb-4">Categories</h2>
               <ul>
@@ -216,11 +212,11 @@ function Home() {
                       <img
                         src={blog.image}
                         alt={blog.title}
-                        className="w-16 h-16 rounded-lg mr-2"
+                        className="w-16 h-16 rounded-lg mr-2 object-cover"
                       />
                       <div>
-                        <h3 className="font-semibold">{blog.title}</h3>
-                        <p className="text-gray-600">{blog.description}</p>
+                        <h3 className="font-semibold text-sm md:text-base">{blog.title}</h3>
+                        <p className="text-gray-600 text-xs md:text-sm">{blog.description}</p>
                       </div>
                     </li>
                   ))}
