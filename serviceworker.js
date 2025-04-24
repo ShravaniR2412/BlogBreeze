@@ -4,6 +4,8 @@ const filesToCache = [
   'index.html',
   'manifest.json',
   '/src/assets/react.svg',
+  '/src/Pages/Home.jsx',
+  '/src/Pages/About.jsx',
   '/public/icon.png',
   '/src/index.css',
   '/src/main.jsx',
@@ -39,28 +41,59 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event: Intercepting requests and serving from cache if available
-self.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', function (event) {
   console.log('Service Worker: Fetching', event.request.url);
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          console.log('Service Worker: Returning cached response');
-          return cachedResponse; // Return the cached response if available
-        }
+  // Skip caching for Firebase API requests
+  if (event.request.url.includes('firestore.googleapis.com')) {
+    // Always fetch Firebase data from the network (no cache)
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
-        return fetch(event.request)
-          .then((networkResponse) => {
-            caches.open(CACHE_NAME).then((cache) => {
-              console.log('Service Worker: Caching new response for', event.request.url);
-              cache.put(event.request, networkResponse.clone()); // Cache the new response
-            });
-            return networkResponse;
-          });
+  event.respondWith(
+    checkResponse(event.request)
+      .catch(function () {
+        console.log('Fetch from cache successful!');
+        return returnFromCache(event.request);
       })
   );
+
+  console.log('Fetch successful!');
+  event.waitUntil(addToCache(event.request));
 });
+
+// Sync event: Handling background sync
+self.addEventListener('sync', function (event) {
+  if (event.tag === 'syncMessage') {
+    console.log('Sync successful!');
+    // You can add more background sync logic here
+  }
+});
+
+// Placeholder functions for cache and response handling
+async function checkResponse(request) {
+  const cachedResponse = await caches.match(request);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  return fetch(request);
+}
+
+function returnFromCache(request) {
+  return caches.match(request);
+}
+
+async function addToCache(request) {
+  const response = await fetch(request);
+  if (!response || response.status !== 200 || response.type !== 'basic') {
+    return response;
+  }
+  const cache = await caches.open(CACHE_NAME);
+  console.log('Service Worker: Adding to cache', request.url);
+  cache.put(request, response);
+  return response;
+}
 
 self.addEventListener('push', (event) => {
     console.log('Push notification received:', event);
@@ -75,8 +108,8 @@ self.addEventListener('push', (event) => {
         // Set up notification options (like body, icon, etc.)
         const options = {
           body: data.message || 'Hello, this is a default message!', // Default or push message
-          icon: '/src/assets/react.svg', // Icon for the notification
-          badge: '/src/assets/react.svg', // Badge icon for the notification
+          icon: '/icon.png', // Icon for the notification
+          badge: '/icon.png', // Badge icon for the notification
         };
   
         // Check if the notification permission is granted before showing the notification

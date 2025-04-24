@@ -43,6 +43,22 @@
       }
     }
   
+
+    navigator.serviceWorker.ready.then((registration) => {
+  return registration.sync.register('syncMessage');
+});
+
+if ('serviceWorker' in navigator && 'SyncManager' in window) {
+  navigator.serviceWorker.ready.then(reg => {
+    return reg.sync.register('syncMessage');
+  }).then(() => {
+    console.log('Background sync registered!');
+  }).catch(err => {
+    console.log('Sync registration failed:', err);
+  });
+}
+
+
     // Request notification permission when the app is loaded
   if ('Notification' in window && navigator.serviceWorker) {
     Notification.requestPermission().then(permission => {
